@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sticky Window</title>
+  <link href="../dist/styles.css" rel="stylesheet">
+</head>
+<body class="bg-transparent m-0 p-3 h-screen select-none">
+  <div class="h-full w-full flex items-center justify-center">
+    <div id="inputContainer" class="w-full h-full bg-app-bg/65 px-8 rounded-full shadow-md flex items-center 
+    justify-center bg-gradient-to-r from-rose-800 to-rose-500 transition-opacity duration-300">
+      <input id="taskInput" class="bg-transparent text-white text-lg text-center font-bold m-0 select-none 
+      outline-none placeholder-gray-300 placeholder:text-opacity-50 w-full"
+       placeholder="Park your task here ..."></input>
+       <button onclick="playVideo('YOUR_VIDEO_ID')">Play Video</button>
+       <div id="player"></div>
+       <script>
+           // Load YouTube IFrame API
+           var tag = document.createElement('script');
+           tag.src = "https://www.youtube.com/iframe_api";
+           var firstScriptTag = document.getElementsByTagName('script')[0];
+           firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+   
+           var player;
+           function onYouTubeIframeAPIReady() {
+               player = new YT.Player('player', {
+                   height: '390',
+                   width: '640',
+                   videoId: 'YOUR_VIDEO_ID',
+                   playerVars: {
+                       'playsinline': 1
+                   }
+               });
+           }
+   
+           function playVideo(videoId) {
+               if (player) {
+                   player.loadVideoById(videoId);
+                   player.playVideo();
+               }
+           }
+       </script>
+    </div>
+  </div>
+  <script>
+    const { ipcRenderer } = require('electron')
+    const inputContainer = document.getElementById('inputContainer')
+    const taskInput = document.getElementById('taskInput')
+
+    ipcRenderer.on('click-through-changed', (event, isClickThrough) => {
+      if (isClickThrough) {
+        inputContainer.classList.add('opacity-50')
+        taskInput.blur() // Remove focus from input when click-through is enabled
+      } else {
+        inputContainer.classList.remove('opacity-50')
+        taskInput.focus() // Focus input when click-through is disabled
+      }
+    })
+  </script>
+</body>
+</html>
