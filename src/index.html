@@ -3,17 +3,33 @@
 <head>
   <title>Sticky Window</title>
   <link href="../dist/styles.css" rel="stylesheet">
+  <style>
+    #player {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+  </style>
 </head>
 <body class="bg-transparent m-0 p-3 h-screen select-none">
   <div class="h-full w-full flex items-center justify-center">
-    <div id="inputContainer" class="w-full h-full bg-app-bg/65 px-8 rounded-full shadow-md flex items-center 
-    justify-center bg-gradient-to-r from-rose-800 to-rose-500 transition-opacity duration-300">
+    <div id="inputContainer" class="w-full h-full bg-app-bg/65 rounded-full shadow-md flex items-center gap-2
+    justify-center bg-gradient-to-r from-rose-800 to-rose-500 transition-opacity duration-300 overflow-hidden">
       <input id="taskInput" class="bg-transparent text-white text-lg text-center font-bold m-0 select-none 
-      outline-none placeholder-gray-300 placeholder:text-opacity-50 w-full"
+       outline-none placeholder-gray-300 placeholder:text-opacity-50 border border-white" style="width: 400px; padding: 0px 20px;"
        placeholder="Park your task here ..."></input>
-       <button onclick="playVideo('YOUR_VIDEO_ID')">Play Video</button>
-       <div id="player"></div>
+       <div class="border border-blue-200 px-4 w-40 cursor-pointer" style="width: 50px; display: flex; flex-direction: row;
+       justify-content: center; float: right; cursor: pointer; " onclick="togglePlay()" >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="25" id="playIcon"><path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 
+        147.1c-7.6 4.2-12.3 12.3-12.3 20.9l0 176c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 
+        11.5-20.5s-4.4-16.1-11.5-20.5l-144-88c-7.4-4.5-16.7-4.7-24.3-.5z" fill="white"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"  width="25" id="pauseIcon" style="display: none;"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM224 192l0 128c0 17.7-14.3 
+          32-32 32s-32-14.3-32-32l0-128c0-17.7 14.3-32 32-32s32 14.3 32 32zm128 0l0 128c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-128c0-17.7 14.3-32 32-32s32
+           14.3 32 32z" fill="white"/></svg></div>
+       <div id="player" class=""></div>
        <script>
+
+           let isPlaying = false;
            // Load YouTube IFrame API
            var tag = document.createElement('script');
            tag.src = "https://www.youtube.com/iframe_api";
@@ -23,14 +39,37 @@
            var player;
            function onYouTubeIframeAPIReady() {
                player = new YT.Player('player', {
-                   height: '390',
-                   width: '640',
-                   videoId: 'YOUR_VIDEO_ID',
+                   height: '0',
+                   width: '0',
+                   videoId: 'jfKfPfyJRdk',
                    playerVars: {
                        'playsinline': 1
                    }
                });
            }
+
+           function togglePlay() {
+            const playIcon = document.getElementById('playIcon');
+            const pauseIcon = document.getElementById('pauseIcon');
+
+            if (!isPlaying) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+                player.playVideo();
+            } else {
+                showPlayButton();
+                player.pauseVideo();
+            }
+            
+            isPlaying = !isPlaying;
+        }
+
+        function showPlayButton() {
+            const playIcon = document.getElementById('playIcon');
+            const pauseIcon = document.getElementById('pauseIcon');
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+        }
    
            function playVideo(videoId) {
                if (player) {
