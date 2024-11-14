@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Sticky Window</title>
-  <link href="../dist/styles.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     #player {
             position: absolute;
@@ -16,9 +16,9 @@
     <div id="inputContainer" class="w-full h-full bg-app-bg/65 rounded-full shadow-md flex items-center gap-2
     justify-center bg-gradient-to-r from-rose-800 to-rose-500 transition-opacity duration-300 overflow-hidden">
       <input id="taskInput" class="bg-transparent text-white text-lg text-center font-bold m-0 select-none 
-       outline-none placeholder-gray-300 placeholder:text-opacity-50 border border-white" style="width: 400px; padding: 0px 20px;"
+       outline-none placeholder-gray-300 placeholder:text-opacity-50 " style="width: 400px; padding: 0px 20px;"
        placeholder="Park your task here ..."></input>
-       <div class="border border-blue-200 px-4 w-40 cursor-pointer" style="width: 50px; display: flex; flex-direction: row;
+       <div class="  px-4 w-40 cursor-pointer" style="width: 50px; display: flex; flex-direction: row;
        justify-content: center; float: right; cursor: pointer; " onclick="togglePlay()" >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="25" id="playIcon"><path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 
         147.1c-7.6 4.2-12.3 12.3-12.3 20.9l0 176c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 
