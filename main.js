@@ -11,6 +11,11 @@ const {
 } = require("electron");
 const path = require("path");
 
+// Enable auto-reload for development
+require('electron-reload')(path.join(__dirname, 'src'), {
+  electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
+});
+
 let win = null;
 let tray = null;
 let isClickThrough = false;
